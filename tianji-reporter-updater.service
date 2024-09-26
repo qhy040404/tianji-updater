@@ -1,0 +1,8 @@
+# /etc/systemd/system/tianji-reporter-updater.service
+
+[Unit]
+Description=Update tianji reporter
+
+[Service]
+Type=simple
+ExecStart=bash /home/ubuntu/tianji-reporter/reporter.sh

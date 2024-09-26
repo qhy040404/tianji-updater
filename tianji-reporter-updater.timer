@@ -1,0 +1,11 @@
+# /etc/systemd/system/tianji-reporter-updater.timer
+
+[Unit]
+Description=Update tianji reporter monthly
+
+[Timer]
+OnCalendar=monthly
+Persistent=true
+
+[Install]
+WantedBy=timers.target

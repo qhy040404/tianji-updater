@@ -1,0 +1,9 @@
+# /etc/systemd/system/tianji-updater.service
+
+[Unit]
+Description=Update tianji
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/ubuntu/tianji
+ExecStart=bash /home/ubuntu/tianji/update.sh
