@@ -2,11 +2,6 @@ $url = "YOUR-TIANJI-SERVER-URL"
 $workspace = "YOUR-WORKSPACE-ID"
 $name = "YOUR-MACHINE-NAME"
 
-function Start-Reporter {
-    taskkill /im tianji-reporter-windows-amd64*
-    Start-Process -FilePath "tianji-reporter-windows-amd64.exe" -ArgumentList "--url $url --workspace $workspace --name $name" -NoNewWindow
-}
-
 $latest = Invoke-WebRequest -Uri "https://api.github.com/repos/msgbyte/tianji/releases/latest"
 $latest = $latest.Content | ConvertFrom-Json
 
@@ -14,7 +9,8 @@ if (Test-Path "latest") {
     $local = Get-Content -Path "latest"
     if ($local -eq $latest.tag_name) {
         Write-Host "No new version available"
-        Start-Reporter
+        taskkill /im tianji-reporter-windows-amd64*
+        Start-Process -FilePath "tianji-reporter-windows-amd64.exe" -ArgumentList "--url $url --workspace $workspace --name $name" -NoNewWindow
         exit 0
     }
 }
@@ -25,5 +21,5 @@ Write-Host "Downloading new version"
 Invoke-WebRequest -Uri "https://github.com/msgbyte/tianji/releases/download/$($latest.tag_name)/tianji-reporter-windows-amd64.exe" -OutFile "tianji-reporter-windows-amd64.exe"
 
 $latest.tag_name | Out-File -FilePath "latest"
-Start-Reporter
+Start-Process -FilePath "tianji-reporter-windows-amd64.exe" -ArgumentList "--url $url --workspace $workspace --name $name" -NoNewWindow
 exit 0
