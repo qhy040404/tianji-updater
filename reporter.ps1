@@ -19,6 +19,7 @@ if (Test-Path "latest") {
     }
 }
 
+taskkill /im tianji-reporter-windows-amd64*
 Write-Host "New version available: $($latest.tag_name)"
 Write-Host "Downloading new version"
 Invoke-WebRequest -Uri "https://github.com/msgbyte/tianji/releases/download/$($latest.tag_name)/tianji-reporter-windows-amd64.exe" -OutFile "tianji-reporter-windows-amd64.exe"
